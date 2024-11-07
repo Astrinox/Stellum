@@ -1,44 +1,39 @@
 {
-	"schemaVersion": 1,
-	"id": "stellum",
-	"version": "${version}",
-	"name": "Stellum",
-	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [
-		"Me!"
-	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
-	"license": "CC0-1.0",
-	"icon": "assets/stellum/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"zoid.stellum.Stellum"
-		],
-		"client": [
-			"zoid.stellum.StellumClient"
-		],
-		"fabric-datagen": [
-			"zoid.stellum.StellumDataGenerator"
-		]
-	},
-	"mixins": [
-		"stellum.mixins.json",
-		{
-			"config": "stellum.client.mixins.json",
-			"environment": "client"
-		}
-	],
-	"depends": {
-		"fabricloader": ">=0.16.9",
-		"minecraft": "~1.21",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+    "schemaVersion": 1,
+    "id": "stellum",
+    "version": "${version}",
+    "name": "Stellum",
+    "description": "A general-purpose library for our mods.",
+    "custom": {
+        "modmenu": {
+            "badges": ["library"],
+            "update_checker": false
+        }
+    },
+    "authors": ["Me!"],
+    "contact": {
+        "homepage": "https://fabricmc.net/",
+        "sources": "https://github.com/FabricMC/fabric-example-mod"
+    },
+    "license": "CC0-1.0",
+    "icon": "assets/stellum/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": ["zoid.stellum.Stellum"],
+        "client": ["zoid.stellum.StellumClient"],
+        "fabric-datagen": ["zoid.stellum.StellumDataGenerator"]
+    },
+    "mixins": [
+        "stellum.mixins.json",
+        {
+            "config": "stellum.client.mixins.json",
+            "environment": "client"
+        }
+    ],
+    "depends": {
+        "fabricloader": ">=0.16.9",
+        "minecraft": "~1.21",
+        "java": ">=21",
+        "fabric-api": "*"
+    }
 }
