@@ -1,11 +1,9 @@
 {
-	"required": true,
-	"package": "zoid.stellum.mixin.client",
-	"compatibilityLevel": "JAVA_21",
-	"client": [
-		"ExampleClientMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+    "required": true,
+    "package": "astrinox.stellum.mixin.client",
+    "compatibilityLevel": "JAVA_21",
+    "client": ["ExampleClientMixin"],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }

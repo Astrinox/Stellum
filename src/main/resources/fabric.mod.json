@@ -12,16 +12,16 @@
     },
     "authors": ["Me!"],
     "contact": {
-        "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/FabricMC/fabric-example-mod"
+        "homepage": "https://modrinth.com/mod/stellum",
+        "sources": "https://github.com/Astrinox/stellum"
     },
-    "license": "CC0-1.0",
+    "license": "GNU GPL v3",
     "icon": "assets/stellum/icon.png",
     "environment": "*",
     "entrypoints": {
-        "main": ["zoid.stellum.Stellum"],
-        "client": ["zoid.stellum.StellumClient"],
-        "fabric-datagen": ["zoid.stellum.StellumDataGenerator"]
+        "main": ["astrinox.stellum.Stellum"],
+        "client": ["astrinox.stellum.StellumClient"],
+        "fabric-datagen": ["astrinox.stellum.StellumDataGenerator"]
     },
     "mixins": [
         "stellum.mixins.json",

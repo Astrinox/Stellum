@@ -1,4 +1,4 @@
-package zoid.stellum;
+package astrinox.stellum;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

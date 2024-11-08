@@ -1,4 +1,4 @@
-package zoid.stellum;
+package astrinox.stellum;
 
 import net.fabricmc.api.ModInitializer;
 
