@@ -2,7 +2,8 @@
     "required": true,
     "package": "astrinox.stellum.mixin",
     "compatibilityLevel": "JAVA_21",
-    "mixins": ["ExampleMixin"],
+    "mixins": [],
+    "client": ["client.CameraMixin"],
     "injectors": {
         "defaultRequire": 1
     }
