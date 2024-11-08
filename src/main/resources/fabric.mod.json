@@ -13,7 +13,7 @@
     "authors": ["Me!"],
     "contact": {
         "homepage": "https://modrinth.com/mod/stellum",
-        "sources": "https://github.com/Astrinox/stellum"
+        "sources": "https://github.com/astrinox/stellum"
     },
     "license": "GNU GPL v3",
     "icon": "assets/stellum/icon.png",
