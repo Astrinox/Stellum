@@ -20,7 +20,6 @@
     "environment": "*",
     "entrypoints": {
         "main": ["astrinox.stellum.Stellum"],
-        "client": ["astrinox.stellum.StellumClient"],
         "fabric-datagen": ["astrinox.stellum.StellumDataGenerator"]
     },
     "mixins": [
