@@ -2,6 +2,7 @@ package astrinox.stellum.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -21,14 +22,19 @@ public class DebugCommand {
         serverCommandSourceDispatcher.register(literal("stellum")
                 .then(literal("debug")
                         .then(literal("screenshake")
-                                .then(argument("intensity", IntegerArgumentType.integer())
-                                        .then(argument("durationMs", IntegerArgumentType.integer())
-                                                .then(argument("fade", BoolArgumentType.bool())
+                                .then(argument("intensity",
+                                        FloatArgumentType.floatArg())
+                                        .then(argument("durationMs",
+                                                IntegerArgumentType
+                                                        .integer())
+                                                .then(argument("fade",
+                                                        BoolArgumentType.bool())
                                                         .executes(DebugCommand::executeScreenshake)))))));
     }
 
-    public static int executeScreenshake(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        int intensity = context.getArgument("intensity", int.class);
+    public static int executeScreenshake(CommandContext<ServerCommandSource> context)
+            throws CommandSyntaxException {
+        float intensity = context.getArgument("intensity", float.class);
         int durationMs = context.getArgument("durationMs", int.class);
         boolean fade = context.getArgument("fade", boolean.class);
         ScreenshakeHandler.addScreenshake(new Screenshake(intensity, durationMs, fade));

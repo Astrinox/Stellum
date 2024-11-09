@@ -7,7 +7,7 @@ public class Screenshake {
     long endTime;
     boolean fade;
 
-    public Screenshake(int intensity, int durationMs, boolean fade) {
+    public Screenshake(float intensity, int durationMs, boolean fade) {
         this.intensity = intensity;
         this.durationMs = durationMs;
         this.fade = fade;
