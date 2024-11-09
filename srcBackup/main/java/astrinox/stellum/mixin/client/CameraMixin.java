@@ -5,13 +5,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import astrinox.stellum.handlers.screenshake.ScreenshakeHandler;
-import net.minecraft.client.render.Camera;
+import astrinox.stellum.Stellum;
+import net.minecraft.client.Camera;
 
 @Mixin(Camera.class)
 public class CameraMixin {
-    @Inject(method = "update", at = @At("RETURN"))
+    @Inject(method = "setup", at = @At("RETURN"))
     public void screenshake(CallbackInfo ci) {
-        ScreenshakeHandler.updateCamera((Camera) (Object) this);
+        Stellum.LOGGER.info("it fucking worked lets gooo");
     }
 }
