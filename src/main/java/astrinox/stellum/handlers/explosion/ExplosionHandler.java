@@ -3,6 +3,7 @@ package astrinox.stellum.handlers.explosion;
 import java.util.Random;
 
 import astrinox.stellum.util.PerlinNoiseHelper;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.World;
@@ -67,7 +68,7 @@ public class ExplosionHandler {
 
                     if (distanceSquared <= sizeSquared + noise.noise(x, y, z) * noiseMultiplier) {
                         blockPos.set(x, y, z);
-                        world.removeBlock(blockPos, false);
+                        world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
                     }
                 }
             }
