@@ -16,10 +16,6 @@ public class ExplosionHandler {
     private int size = 16;
     private double noiseScale = 0.3;
     private float noiseMultiplier = 100;
-    private boolean effectsPass = true;
-    private int effectsSizeDifference = 6;
-    private boolean scorchBlocks = true;
-    private boolean doFire = true;
     private boolean breakBlocks = true;
     private boolean hurtEntities = true;
     private float damage = 10;
@@ -41,26 +37,6 @@ public class ExplosionHandler {
 
     public ExplosionHandler setNoiseMultiplier(float noiseMultiplier) {
         this.noiseMultiplier = noiseMultiplier;
-        return this;
-    }
-
-    public ExplosionHandler setEffectsPass(boolean doEffectsPass) {
-        this.effectsPass = doEffectsPass;
-        return this;
-    }
-
-    public ExplosionHandler setEffectsSizeDifference(int effectsSizeDifference) {
-        this.effectsSizeDifference = effectsSizeDifference;
-        return this;
-    }
-
-    public ExplosionHandler setScorchBlocks(boolean scorchBlocks) {
-        this.scorchBlocks = scorchBlocks;
-        return this;
-    }
-
-    public ExplosionHandler setDoFire(boolean doFire) {
-        this.doFire = doFire;
         return this;
     }
 
@@ -111,35 +87,7 @@ public class ExplosionHandler {
             }
         }
 
-        if (!effectsPass) {
-            return;
-        }
+        // TODO: Add effects pass, for things like fire and scorching
 
-        PerlinNoiseHelper effectsNoise = new PerlinNoiseHelper(new Random().nextLong(), noiseScale);
-
-        int effectsSize = size + effectsSizeDifference;
-        int effectsSizeSquared = effectsSize * effectsSize;
-        for (int x = pos.getX() - effectsSize; x <= pos.getX() + effectsSize; x++) {
-            for (int y = pos.getY() - effectsSize; y <= pos.getY() + effectsSize; y++) {
-                for (int z = pos.getZ() - effectsSize; z <= pos.getZ() + effectsSize; z++) {
-                    int dx = x - pos.getX();
-                    int dy = y - pos.getY();
-                    int dz = z - pos.getZ();
-
-                    int distanceSquared = dx * dx + dy * dy + dz * dz;
-
-                    if (distanceSquared <= effectsSizeSquared + effectsNoise.noise(x, y, z) * noiseMultiplier) {
-                        blockPos.set(x, y, z);
-                        if (doFire) {
-                            if (world.getBlockState(blockPos).isAir()
-                                    && world.getBlockState(blockPos.down()).isSolidBlock(world, blockPos)
-                                    && Math.random() < 0.1) {
-                                world.setBlockState(blockPos, Blocks.FIRE.getDefaultState());
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 }

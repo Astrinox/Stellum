@@ -51,9 +51,8 @@ public class DebugCommand {
                                         .then(argument("noiseScale", DoubleArgumentType.doubleArg())
                                                 .then(argument("noiseMultiplier", FloatArgumentType.floatArg())
                                                         .then(argument("damage", FloatArgumentType.floatArg())
-                                                                .then(argument("doFire", BoolArgumentType.bool())
-                                                                        .executes(
-                                                                                DebugCommand::executeExplosion)))))))));
+                                                                .executes(
+                                                                        DebugCommand::executeExplosion))))))));
     }
 
     public static int executeScreenshake(CommandContext<ServerCommandSource> context)
@@ -107,9 +106,7 @@ public class DebugCommand {
                 .setNoiseMultiplier(noiseMultiplier)
                 .setHurtEntities(true)
                 .setBreakBlocks(true)
-                .setDamage(context.getArgument("damage", float.class))
-                .setDoFire(context.getArgument("doFire", boolean.class))
-                .setEffectsSizeDifference(context.getArgument("size", int.class) / 3);
+                .setDamage(context.getArgument("damage", float.class));
 
         explosion.trigger(world);
 
