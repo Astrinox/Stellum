@@ -50,7 +50,10 @@ public class DebugCommand {
                                 .then(argument("size", IntegerArgumentType.integer())
                                         .then(argument("noiseScale", DoubleArgumentType.doubleArg())
                                                 .then(argument("noiseMultiplier", FloatArgumentType.floatArg())
-                                                        .executes(DebugCommand::executeExplosion)))))));
+                                                        .then(argument("damage", FloatArgumentType.floatArg())
+                                                                .then(argument("doFire", BoolArgumentType.bool())
+                                                                        .executes(
+                                                                                DebugCommand::executeExplosion)))))))));
     }
 
     public static int executeScreenshake(CommandContext<ServerCommandSource> context)
@@ -91,7 +94,6 @@ public class DebugCommand {
     public static int executeExplosion(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
         World world = source.getWorld();
-        int size = context.getArgument("size", int.class);
         double noiseScale = context.getArgument("noiseScale", double.class);
         float noiseMultiplier = context.getArgument("noiseMultiplier", float.class);
 
@@ -100,9 +102,14 @@ public class DebugCommand {
                         (int) source.getPosition().x,
                         (int) source.getPosition().y,
                         (int) source.getPosition().z))
-                .setSize(size)
+                .setSize(context.getArgument("size", int.class))
                 .setNoiseScale(noiseScale)
-                .setNoiseMultiplier(noiseMultiplier);
+                .setNoiseMultiplier(noiseMultiplier)
+                .setHurtEntities(true)
+                .setBreakBlocks(true)
+                .setDamage(context.getArgument("damage", float.class))
+                .setDoFire(context.getArgument("doFire", boolean.class))
+                .setEffectsSizeDifference(context.getArgument("size", int.class) / 3);
 
         explosion.trigger(world);
 
