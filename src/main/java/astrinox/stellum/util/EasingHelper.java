@@ -2,7 +2,7 @@ package astrinox.stellum.util;
 
 // https://easings.net/
 
-public class EaseHelper {
+public class EasingHelper {
     public static double easeInSine(double x) {
         return 1 - Math.cos((x * Math.PI) / 2);
     }

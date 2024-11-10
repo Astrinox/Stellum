@@ -3,7 +3,7 @@ package astrinox.stellum.handlers.screenshake;
 import java.util.ArrayList;
 import net.minecraft.client.render.Camera;
 import net.minecraft.util.math.Vec2f;
-import astrinox.stellum.util.EaseHelper;
+import astrinox.stellum.util.EasingHelper;
 import astrinox.stellum.util.MathHelper;
 
 public class ScreenshakeHandler {
@@ -38,7 +38,7 @@ public class ScreenshakeHandler {
         double sum = 0;
         for (Screenshake screenshake : screenshakes) {
             if (screenshake.fade) {
-                sum += EaseHelper.easeInQuad(
+                sum += EasingHelper.easeInQuad(
                         MathHelper.map(System.currentTimeMillis(), screenshake.startTime, screenshake.endTime,
                                 screenshake.intensity, 0));
             } else {
