@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import astrinox.stellum.command.StellumDebugCommand;
 
 public class Stellum implements ModInitializer {
-	public static final String MOD_ID = "stellum";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final String MOD_ID = "stellum";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	@Override
-	public void onInitialize() {
-		LOGGER.info("✨");
+    @Override
+    public void onInitialize() {
+        LOGGER.info("✨");
 
-		CommandRegistrationCallback.EVENT.register(StellumDebugCommand::register);
-	}
+        CommandRegistrationCallback.EVENT.register(StellumDebugCommand::register);
+    }
 }

@@ -8,9 +8,6 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import com.mojang.serialization.JsonOps;
-
-import astrinox.stellum.Stellum;
 import astrinox.stellum.handlers.explosion.BurnMap;
 import astrinox.stellum.handlers.explosion.BurnZone;
 import astrinox.stellum.handlers.explosion.Burnable;
@@ -18,7 +15,6 @@ import astrinox.stellum.handlers.explosion.BurnableIO;
 import astrinox.stellum.handlers.explosion.ExplosionHandler;
 import astrinox.stellum.handlers.screenshake.Screenshake;
 import astrinox.stellum.handlers.screenshake.ScreenshakeHandler;
-import astrinox.stellum.registry.BurnMapRegistry;
 import astrinox.stellum.util.PerlinNoiseHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandRegistryAccess;
