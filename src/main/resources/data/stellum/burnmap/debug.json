@@ -1,0 +1,32 @@
+{
+    "burnmap": [
+        {
+            "source": ["#minecraft:leaves"],
+            "replace": ["minecraft:mangrove_root"]
+        },
+        {
+            "source": ["#minecraft:base_stone_overworld"],
+            "replace": [
+                "minecraft:deepslate",
+                "minecraft:cobbled_deepslate",
+                "minecraft:magma_block"
+            ]
+        },
+        {
+            "source": ["#minecraft:logs"],
+            "replace": ["minecraft:polished_basalt"]
+        },
+        {
+            "source": ["#minecraft:dirt"],
+            "replace": [
+                "minecraft:coarse_dirt",
+                "minecraft:podzol",
+                "minecraft:magma_block"
+            ]
+        },
+        {
+            "source": ["#minecraft:flowers", "minecraft:short_grass"],
+            "replace": ["minecraft:dead_bush"]
+        }
+    ]
+}

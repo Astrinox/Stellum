@@ -8,8 +8,11 @@ import java.io.InputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 
 import astrinox.stellum.Stellum;
+import astrinox.stellum.handlers.explosion.Burnmap;
+import astrinox.stellum.registry.BurnMapRegistry;
 
 public class StellumResourceReloadListener implements SimpleSynchronousResourceReloadListener {
 
@@ -26,8 +29,19 @@ public class StellumResourceReloadListener implements SimpleSynchronousResourceR
                 Stellum.LOGGER.info("Loaded burnmap: " + id.toString());
                 Gson gson = new Gson();
                 JsonObject jsonObject = gson.fromJson(new String(stream.readAllBytes()), JsonObject.class);
+
+                Burnmap burnmap = Burnmap.CODEC.parse(JsonOps.INSTANCE, jsonObject).resultOrPartial().orElse(null);
+
+                if (burnmap != null) {
+                    BurnMapRegistry
+                            .registerBurnMap(
+                                    Identifier.of(Stellum.MOD_ID,
+                                            id.getPath().substring(id.getPath().lastIndexOf('/') + 1).replace(".json",
+                                                    "")),
+                                    burnmap);
+                }
             } catch (Exception e) {
-                Stellum.LOGGER.error("Error occurred while loading resource json" + id.toString(), e);
+                Stellum.LOGGER.error("Error occurred while loading resource JSON: " + id.toString(), e);
             }
         }
     }

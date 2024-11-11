@@ -16,7 +16,7 @@ public class BurnZone {
     private int explosionSize = 16;
     private double noiseScale = 0.3;
     private float noiseMultiplier = 100;
-    private BurnMap burnMap;
+    private Burnmap burnMap;
     private Function<Double, Double> falloffFunction = EasingHelper::easeInSine;
 
     public BurnZone setPos(BlockPos pos) {
@@ -44,7 +44,7 @@ public class BurnZone {
         return this;
     }
 
-    public BurnZone setBurnMap(BurnMap burnMap) {
+    public BurnZone setBurnMap(Burnmap burnMap) {
         this.burnMap = burnMap;
         return this;
     }

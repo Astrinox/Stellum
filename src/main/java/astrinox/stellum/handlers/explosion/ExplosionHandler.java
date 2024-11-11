@@ -22,7 +22,7 @@ public class ExplosionHandler {
     private boolean hurtEntities = true;
     private float damage = 10;
     private boolean burnBlocks = false;
-    private BurnMap burnMap;
+    private Burnmap burnMap;
     private int burnSize;
     private Function<Double, Double> burnFalloffFunction = (Double x) -> EasingHelper.easeInSine(x);
 
@@ -66,7 +66,7 @@ public class ExplosionHandler {
         return this;
     }
 
-    public ExplosionHandler setBurnMap(BurnMap burnMap) {
+    public ExplosionHandler setBurnMap(Burnmap burnMap) {
         this.burnMap = burnMap;
         return this;
     }
