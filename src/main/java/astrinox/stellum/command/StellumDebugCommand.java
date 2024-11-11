@@ -8,7 +8,9 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import com.mojang.serialization.JsonOps;
 
+import astrinox.stellum.Stellum;
 import astrinox.stellum.handlers.explosion.BurnMap;
 import astrinox.stellum.handlers.explosion.BurnZone;
 import astrinox.stellum.handlers.explosion.Burnable;
@@ -16,6 +18,7 @@ import astrinox.stellum.handlers.explosion.BurnableIO;
 import astrinox.stellum.handlers.explosion.ExplosionHandler;
 import astrinox.stellum.handlers.screenshake.Screenshake;
 import astrinox.stellum.handlers.screenshake.ScreenshakeHandler;
+import astrinox.stellum.registry.BurnMapRegistry;
 import astrinox.stellum.util.PerlinNoiseHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandRegistryAccess;
@@ -211,10 +214,9 @@ public class StellumDebugCommand {
                                             .getDefaultState())))
                     .addBurnables(
                             new BurnableIO(
-                                    new Burnable().addTag(
-                                            BlockTags.BASE_STONE_OVERWORLD),
-                                    new Burnable().addBlock(Blocks.COBBLESTONE
-                                            .getDefaultState())
+                                    new Burnable().addTag(BlockTags.BASE_STONE_OVERWORLD),
+                                    new Burnable().addBlock(
+                                            Blocks.COBBLESTONE.getDefaultState())
                                             .addBlock(Blocks.COBBLED_DEEPSLATE
                                                     .getDefaultState())
                                             .addBlock(Blocks.MAGMA_BLOCK
@@ -227,9 +229,8 @@ public class StellumDebugCommand {
                     .addBurnables(
                             new BurnableIO(
                                     new Burnable().addTag(BlockTags.DIRT),
-                                    new Burnable().addBlock(
-                                            Blocks.DEAD_FIRE_CORAL_BLOCK
-                                                    .getDefaultState())
+                                    new Burnable().addBlock(Blocks.DEAD_FIRE_CORAL_BLOCK
+                                            .getDefaultState())
                                             .addBlock(Blocks.COARSE_DIRT
                                                     .getDefaultState())
                                             .addBlock(Blocks.MAGMA_BLOCK
@@ -263,7 +264,7 @@ public class StellumDebugCommand {
             burnzone.trigger(world);
         } catch (Exception e) {
             source.sendError(Text.literal(
-                    "An error occurred while executing the burnzone command: " + e.getMessage()));
+                    "An error occurred while executing the burnzone command: " + e.toString()));
         }
 
         return 1;
