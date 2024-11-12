@@ -2,6 +2,7 @@ package astrinox.stellum;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import astrinox.stellum.command.StellumDebugCommand;
+import astrinox.stellum.handlers.schedule.ScheduleHandler;
 import astrinox.stellum.resource.StellumResourceReloadListener;
 
 public class Stellum implements ModInitializer {
@@ -21,5 +23,6 @@ public class Stellum implements ModInitializer {
 
         CommandRegistrationCallback.EVENT.register(StellumDebugCommand::register);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new StellumResourceReloadListener());
+        ServerTickEvents.START_SERVER_TICK.register((server) -> ScheduleHandler.update());
     }
 }
