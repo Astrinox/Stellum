@@ -2,7 +2,11 @@ package astrinox.stellum.handlers.explosion;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
+import astrinox.stellum.handlers.screenshake.Screenshake;
+import astrinox.stellum.handlers.screenshake.ScreenshakeHandler;
+import astrinox.stellum.util.EasingHelper;
 import astrinox.stellum.util.PerlinNoiseHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
@@ -19,6 +23,15 @@ public class ExplosionHandler {
     private boolean breakBlocks = true;
     private boolean hurtEntities = true;
     private float damage = 10;
+    private boolean burnBlocks = false;
+    private Burnmap burnMap;
+    private int burnSize;
+    private boolean burnDoFire;
+    private Function<Double, Double> burnFalloffFunction = (Double x) -> EasingHelper.easeInSine(x);
+    private boolean doScreenshake = true;
+    private float screenshakeIntensity = 0.5f;
+    private int screenshakeDurationMs = 1000;
+    private boolean doScreenshakeFade = true;
 
     public ExplosionHandler setPos(BlockPos pos) {
         this.pos = pos;
@@ -55,13 +68,58 @@ public class ExplosionHandler {
         return this;
     }
 
+    public ExplosionHandler setBurnBlocks(boolean burnBlocks) {
+        this.burnBlocks = burnBlocks;
+        return this;
+    }
+
+    public ExplosionHandler setBurnMap(Burnmap burnMap) {
+        this.burnMap = burnMap;
+        return this;
+    }
+
+    public ExplosionHandler setBurnSize(int burnSize) {
+        this.burnSize = burnSize;
+        return this;
+    }
+
+    public ExplosionHandler setBurnFalloffFunction(Function<Double, Double> burnFalloffFunction) {
+        this.burnFalloffFunction = burnFalloffFunction;
+        return this;
+    }
+
+    public ExplosionHandler setDoScreenshake(boolean doScreenshake) {
+        this.doScreenshake = doScreenshake;
+        return this;
+    }
+
+    public ExplosionHandler setScreenshakeIntensity(float screenshakeIntensity) {
+        this.screenshakeIntensity = screenshakeIntensity;
+        return this;
+    }
+
+    public ExplosionHandler setScreenshakeDurationMs(int screenshakeDurationMs) {
+        this.screenshakeDurationMs = screenshakeDurationMs;
+        return this;
+    }
+
+    public ExplosionHandler setDoScreenshakeFade(boolean doScreenshakeFade) {
+        this.doScreenshakeFade = doScreenshakeFade;
+        return this;
+    }
+
+    public ExplosionHandler setBurnDoFire(boolean burnDoFire) {
+        this.burnDoFire = burnDoFire;
+        return this;
+    }
+
     public void trigger(World world) {
         int sizeSquared = size * size;
         Mutable blockPos = new Mutable();
-        PerlinNoiseHelper mainNoise = new PerlinNoiseHelper(new Random().nextLong(), noiseScale);
+        PerlinNoiseHelper noise = new PerlinNoiseHelper(new Random().nextLong(), noiseScale);
 
-        for (int x = pos.getX() - size; x <= pos.getX() + size; x++) {
-            for (int y = pos.getY() - size; y <= pos.getY() + size; y++) {
+        for (int y = pos.getY() + size; y >= pos.getY() - size; y--) {
+            for (int x = pos.getX() - size; x <= pos.getX() + size; x++) {
                 for (int z = pos.getZ() - size; z <= pos.getZ() + size; z++) {
                     int dx = x - pos.getX();
                     int dy = y - pos.getY();
@@ -69,10 +127,10 @@ public class ExplosionHandler {
 
                     int distanceSquared = dx * dx + dy * dy + dz * dz;
 
-                    if (distanceSquared <= sizeSquared + mainNoise.noise(x, y, z) * noiseMultiplier) {
+                    if (distanceSquared <= sizeSquared + noise.noise(x, y, z) * noiseMultiplier) {
                         blockPos.set(x, y, z);
                         if (breakBlocks) {
-                            world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
+                            world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 0b01100010);
                         }
                         if (hurtEntities) {
                             Box box = new Box(x - 0.5, y - 0.5, z - 0.5, x + 0.5, y + 0.5, z + 0.5);
@@ -87,7 +145,24 @@ public class ExplosionHandler {
             }
         }
 
-        // TODO: Add effects pass, for things like fire and scorching
+        if (burnBlocks) {
+            BurnZone burnZone = new BurnZone()
+                    .setPos(pos)
+                    .setSize(burnSize)
+                    .setExplosionSize(size)
+                    .setNoiseScale(noiseScale)
+                    .setNoiseMultiplier(noiseMultiplier)
+                    .setBurnMap(burnMap)
+                    .setFalloffFunction(burnFalloffFunction == null ? EasingHelper::easeInSine : burnFalloffFunction)
+                    .setDoFire(burnDoFire);
+
+            burnZone.trigger(world);
+        }
+
+        if (doScreenshake) {
+            ScreenshakeHandler
+                    .addScreenshake(new Screenshake(screenshakeIntensity, screenshakeDurationMs, doScreenshakeFade));
+        }
 
     }
 }
