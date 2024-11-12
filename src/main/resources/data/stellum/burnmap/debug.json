@@ -2,7 +2,7 @@
     "burnmap": [
         {
             "source": ["#minecraft:leaves"],
-            "replace": ["minecraft:mangrove_root"]
+            "replace": ["minecraft:mangrove_roots"]
         },
         {
             "source": ["#minecraft:base_stone_overworld"],
