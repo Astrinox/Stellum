@@ -3,7 +3,7 @@
 <a href="https://modrinth.com/mod/stellum"><img src="https://github.com/intergrav/devins-badges/blob/v3/assets/compact/available/modrinth_46h.png?raw=true"/></a>
 <a href="https://modrinth.com/mod/fabric-api"><img src="https://github.com/intergrav/devins-badges/blob/v3/assets/compact/requires/fabric-api_46h.png?raw=true"/>
 <img src="https://github.com/intergrav/devins-badges/blob/v3/assets/compact/unsupported/forge_46h.png?raw=true"/>
-</p>
+</p></a>
 
 ## Planned features (not a solid list, can and will change):
 
