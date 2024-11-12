@@ -18,10 +18,8 @@ import astrinox.stellum.registry.BurnMapRegistry;
 import astrinox.stellum.util.PerlinNoiseHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -72,8 +70,26 @@ public class StellumDebugCommand {
                                                                         .then(argument("burnSize",
                                                                                 IntegerArgumentType
                                                                                         .integer())
-                                                                                .executes(
-                                                                                        StellumDebugCommand::executeExplosion))))))))
+                                                                                .then(argument("doScreenshake",
+                                                                                        BoolArgumentType.bool())
+                                                                                        .then(argument(
+                                                                                                "screenshakeIntensity",
+                                                                                                FloatArgumentType
+                                                                                                        .floatArg())
+                                                                                                .then(argument(
+                                                                                                        "screenshakeDurationMs",
+                                                                                                        IntegerArgumentType
+                                                                                                                .integer())
+                                                                                                        .then(argument(
+                                                                                                                "screenshakeFade",
+                                                                                                                BoolArgumentType
+                                                                                                                        .bool())
+                                                                                                                .then(argument(
+                                                                                                                        "doFire",
+                                                                                                                        BoolArgumentType
+                                                                                                                                .bool())
+                                                                                                                        .executes(
+                                                                                                                                StellumDebugCommand::executeExplosion)))))))))))))
                         .then(literal("burnzone")
                                 .then(argument("size", IntegerArgumentType.integer())
                                         .then(argument("explosionSize",
@@ -85,8 +101,9 @@ public class StellumDebugCommand {
                                                         .then(argument("noiseMultiplier",
                                                                 FloatArgumentType
                                                                         .floatArg())
-                                                                .executes(
-                                                                        StellumDebugCommand::executeBurnzone))))))));
+                                                                .then(argument("doFire", BoolArgumentType.bool())
+                                                                        .executes(
+                                                                                StellumDebugCommand::executeBurnzone)))))))));
     }
 
     public static int executeScreenshake(CommandContext<ServerCommandSource> context)
@@ -145,7 +162,11 @@ public class StellumDebugCommand {
                 .setDamage(context.getArgument("damage", float.class))
                 .setBurnBlocks(context.getArgument("burnBlocks", boolean.class))
                 .setBurnSize(context.getArgument("burnSize", int.class))
-                .setBurnMap(burnMap);
+                .setBurnMap(burnMap)
+                .setDoScreenshake(context.getArgument("doScreenshake", boolean.class))
+                .setScreenshakeIntensity(context.getArgument("screenshakeIntensity", float.class))
+                .setScreenshakeDurationMs(context.getArgument("screenshakeDurationMs", int.class))
+                .setBurnDoFire(context.getArgument("doFire", boolean.class));
 
         explosion.trigger(world);
 

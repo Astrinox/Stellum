@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
+import astrinox.stellum.handlers.screenshake.Screenshake;
+import astrinox.stellum.handlers.screenshake.ScreenshakeHandler;
 import astrinox.stellum.util.EasingHelper;
 import astrinox.stellum.util.PerlinNoiseHelper;
 import net.minecraft.block.Blocks;
@@ -24,7 +26,12 @@ public class ExplosionHandler {
     private boolean burnBlocks = false;
     private Burnmap burnMap;
     private int burnSize;
+    private boolean burnDoFire;
     private Function<Double, Double> burnFalloffFunction = (Double x) -> EasingHelper.easeInSine(x);
+    private boolean doScreenshake = true;
+    private float screenshakeIntensity = 0.5f;
+    private int screenshakeDurationMs = 1000;
+    private boolean doScreenshakeFade = true;
 
     public ExplosionHandler setPos(BlockPos pos) {
         this.pos = pos;
@@ -81,6 +88,31 @@ public class ExplosionHandler {
         return this;
     }
 
+    public ExplosionHandler setDoScreenshake(boolean doScreenshake) {
+        this.doScreenshake = doScreenshake;
+        return this;
+    }
+
+    public ExplosionHandler setScreenshakeIntensity(float screenshakeIntensity) {
+        this.screenshakeIntensity = screenshakeIntensity;
+        return this;
+    }
+
+    public ExplosionHandler setScreenshakeDurationMs(int screenshakeDurationMs) {
+        this.screenshakeDurationMs = screenshakeDurationMs;
+        return this;
+    }
+
+    public ExplosionHandler setDoScreenshakeFade(boolean doScreenshakeFade) {
+        this.doScreenshakeFade = doScreenshakeFade;
+        return this;
+    }
+
+    public ExplosionHandler setBurnDoFire(boolean burnDoFire) {
+        this.burnDoFire = burnDoFire;
+        return this;
+    }
+
     public void trigger(World world) {
         int sizeSquared = size * size;
         Mutable blockPos = new Mutable();
@@ -121,9 +153,15 @@ public class ExplosionHandler {
                     .setNoiseScale(noiseScale)
                     .setNoiseMultiplier(noiseMultiplier)
                     .setBurnMap(burnMap)
-                    .setFalloffFunction(burnFalloffFunction == null ? EasingHelper::easeInSine : burnFalloffFunction);
+                    .setFalloffFunction(burnFalloffFunction == null ? EasingHelper::easeInSine : burnFalloffFunction)
+                    .setDoFire(burnDoFire);
 
             burnZone.trigger(world);
+        }
+
+        if (doScreenshake) {
+            ScreenshakeHandler
+                    .addScreenshake(new Screenshake(screenshakeIntensity, screenshakeDurationMs, doScreenshakeFade));
         }
 
     }
