@@ -7,14 +7,14 @@
 
 ## Planned features (not a solid list, can and will change):
 
--   [x] ~~Easy screenshake API~~ (Added in 0.0.1-alpha)
+-   [x] ~~Easy screenshake API~~
 -   [ ] Functions to replace boilerplate item, block, tool, etc. code
--   [ ] Simple event scheduler
+-   [x] ~~Simple event scheduler~~
 -   [ ] [AAA-Particles](https://modrinth.com/mod/aaa-particles) wrapper for ease of use
--   [x] ~~Explosion API for large-scale, impactful explosions~~ (Added in 0.0.3-alpha, still heavily WIP)
--   [x] ~~Block burning API (primarily for explosions)~~ (Added in 0.0.3-alpha)
--   [x] ~~3D Perlin noise generator~~ (Added in 0.0.2-alpha)
--   [x] ~~Easing functions~~ (Added in 0.0.2-alpha)
+-   [x] ~~Explosion API for large-scale, impactful explosions~~
+-   [x] ~~Block burning API (primarily for explosions)~~
+-   [x] ~~3D Perlin noise generator~~
+-   [x] ~~Easing functions~~
 
 ## Documentation:
 
