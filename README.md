@@ -5,6 +5,9 @@
 <img src="https://github.com/intergrav/devins-badges/blob/v3/assets/compact/unsupported/forge_46h.png?raw=true"/>
 </p></a>
 
+> [!NOTE]
+> this is never going to be revived, regardless of whether the main organization comes back.
+
 ## Planned features (not a solid list, can and will change):
 
 -   [x] ~~Easy screenshake API~~
